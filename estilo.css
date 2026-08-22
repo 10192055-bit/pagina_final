@@ -1,6 +1,5 @@
-
 :root{
-  --black:#0c0806;
+  --black:#000000;
   --coal:#15100b;
   --panel:#1c1410;
   --line:#2e2018;
@@ -19,6 +18,8 @@ body{background:var(--black);color:var(--ink);font-family:'Syne',sans-serif;over
 ::-webkit-scrollbar-track{background:var(--coal)}
 ::-webkit-scrollbar-thumb{background:linear-gradient(var(--red),var(--orange));border-radius:5px}
 
+img{max-width:100%;height:auto;display:block}
+
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
@@ -33,15 +34,41 @@ nav{
 .nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;transition:color .25s}
 .nav-links a:hover{color:var(--orange)}
 
+.nav-toggle{
+  display:none;
+  flex-direction:column;
+  justify-content:space-between;
+  width:28px;height:20px;
+  background:none;border:none;
+  cursor:pointer;
+  padding:0;
+}
+.nav-toggle span{
+  display:block;
+  width:100%;height:3px;
+  background:var(--ink);
+  border-radius:2px;
+  transition:transform .3s ease,opacity .3s ease;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
+
 .hero{
-  min-height:100svh;display:flex;align-items:center;
+  min-height:100svh;
+  display:grid;
+  grid-template-columns:1fr;
+  align-items:center;
+  gap:32px;
   padding:140px clamp(20px,6vw,80px) 60px;
   background:
     radial-gradient(900px 500px at 85% 15%, rgba(229,35,27,.16), transparent 60%),
-    radial-gradient(700px 500px at 10% 85%, rgba(255,122,24,.12), transparent 60%);
+    radial-gradient(700px 500px at 10% 85%, rgba(255,122,24,.12), transparent 60%),
+    linear-gradient(rgba(12,8,6,.78), rgba(12,8,6,.88)),
+    url("img/neruko%20para%20la%20pagina.png") center/cover no-repeat;
 }
 .hero-copy .jp{font-family:'Shippori Mincho',serif;color:var(--red);letter-spacing:.4em;font-size:clamp(.8rem,1.4vw,1rem);margin-bottom:14px;display:block}
-.hero-copy h1{font-size:clamp(3rem,7.2vw,6.2rem);font-weight:800;line-height:.95;text-transform:uppercase}
+.hero-copy h1{font-size:clamp(2.4rem,7.2vw,6.2rem);font-weight:800;line-height:.95;text-transform:uppercase}
 .hero-copy h1 em{font-style:normal;color:var(--orange)}
 .hero-copy h1 .stroke{color:transparent;-webkit-text-stroke:2px var(--red)}
 .hero-copy p{margin-top:22px;max-width:52ch;color:var(--muted);font-size:clamp(.95rem,1.3vw,1.08rem);line-height:1.65}
@@ -56,6 +83,8 @@ nav{
 .btn-solid:hover{transform:translateY(-3px);box-shadow:0 18px 42px -12px rgba(255,122,24,.65)}
 .btn-ghost{color:var(--amber)}
 .btn-ghost:hover{background:rgba(255,122,24,.1);transform:translateY(-3px)}
+
+.hero-art{display:none}
 
 section{padding:clamp(70px,10vw,130px) clamp(20px,6vw,80px)}
 .sec-tag{font-family:'Space Mono',monospace;color:var(--orange);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
@@ -78,7 +107,7 @@ section{padding:clamp(70px,10vw,130px) clamp(20px,6vw,80px)}
   background:linear-gradient(135deg,var(--red),var(--orange));
   box-shadow:0 8px 24px -8px rgba(255,60,20,.6);
 }
-.card-icon img{width:30px;height:30px;display:block;object-fit:contain}
+.card-icon img{width:30px;height:30px;display:block;object-fit:cover}
 .price{font-family:'Space Mono',monospace;font-weight:700;color:var(--amber);font-size:1.05rem}
 .card h3{font-size:1.15rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
 .card h3 small{display:block;font-family:'Shippori Mincho',serif;color:var(--red);font-size:.72rem;letter-spacing:.3em;margin-top:4px}
@@ -89,7 +118,7 @@ section{padding:clamp(70px,10vw,130px) clamp(20px,6vw,80px)}
 .tag-hot{position:absolute;top:16px;right:-34px;transform:rotate(45deg);background:var(--red);color:var(--ink);font-size:.62rem;font-weight:800;letter-spacing:.18em;padding:6px 40px}
 
 .builder{background:var(--coal)}
-.builder-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(24px,4vw,56px);margin-top:48px;align-items:start}
+.builder-grid{display:grid;grid-template-columns:1fr;gap:clamp(24px,4vw,56px);margin-top:48px;align-items:start}
 .opt-group{margin-bottom:30px}
 .opt-group h4{font-size:.82rem;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .opt-group h4::after{content:"";flex:1;height:1px;background:var(--line)}
@@ -116,7 +145,7 @@ section{padding:clamp(70px,10vw,130px) clamp(20px,6vw,80px)}
 .receipt .btn{width:100%;margin-top:18px;border:none}
 .receipt-note{text-align:center;font-size:.68rem;margin-top:12px;color:#a67c58;letter-spacing:.1em}
 
-.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);margin-top:48px}
+.visit-grid{display:grid;grid-template-columns:1fr;gap:clamp(24px,4vw,60px);margin-top:48px}
 .info-block{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:30px}
 .info-block h4{color:var(--orange);text-transform:uppercase;letter-spacing:.2em;font-size:.85rem;margin-bottom:18px}
 .info-block table{width:100%;border-collapse:collapse;font-size:.92rem}
@@ -153,10 +182,30 @@ footer p{color:var(--muted);font-size:.78rem;letter-spacing:.08em}
 
 @keyframes pulse{50%{opacity:.35}}
 
-@media(max-width:960px){
-  .hero{padding-top:130px}
-  .builder-grid,.visit-grid{grid-template-columns:1fr}
+@media(min-width:768px){
+  .hero{grid-template-columns:1.05fr .95fr}
+  .hero-art{display:block}
+  .builder-grid{grid-template-columns:1.25fr .75fr}
+  .visit-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:767px){
+  .nav-toggle{display:flex}
+  .nav-links{
+    position:fixed;top:0;right:0;bottom:0;
+    width:min(85vw,320px);
+    background:var(--coal);
+    border-left:1px solid var(--line);
+    flex-direction:column;align-items:center;justify-content:center;
+    gap:28px;
+    padding:80px 24px 40px;
+    transform:translateX(100%);
+    transition:transform .4s cubic-bezier(.2,.9,.3,1);
+    z-index:99;
+  }
+  .nav-links.open{transform:translateX(0)}
+  .nav-links a{font-size:1.1rem}
+  .hero{padding-top:120px}
+  .hero-copy h1{font-size:clamp(2.2rem,10vw,4rem)}
   .receipt{position:static}
-  .nav-links{gap:14px}
-  .nav-links a{font-size:.68rem}
 }

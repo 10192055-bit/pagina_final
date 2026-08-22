@@ -10,6 +10,18 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: .15 });
 $$('.reveal').forEach(el => io.observe(el));
 
+const navToggle = $('#navToggle');
+const navLinks = $('#navLinks');
+navToggle.addEventListener('click', () => {
+  const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+  navToggle.setAttribute('aria-expanded', !expanded);
+  navLinks.classList.toggle('open');
+});
+$$('.nav-links a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', 'false');
+}));
+
 const state = {};
 function renderReceipt() {
   const list = $('#receiptList');
@@ -28,16 +40,26 @@ function renderReceipt() {
 $$('.chips').forEach(group => {
   const g = group.dataset.group;
   state[g] = [];
+
   group.addEventListener('click', e => {
     const chip = e.target.closest('.chip');
     if (!chip) return;
+
     const multi = group.dataset.multi === 'true';
-    if (!multi) group.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
-    chip.classList.toggle('on');
-    const name = chip.textContent.replace(/\+?[\d.]+$|incluido/g, '').trim();
-    chip.classList.contains('on')
-      ? state[g].push({ name, price: +chip.dataset.price })
-      : state[g] = state[g].filter(i => i.name !== name);
+    const yaEstabaActivo = chip.classList.contains('on');
+
+    if (!multi) {
+      group.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+      yaEstabaActivo ? chip.classList.remove('on') : chip.classList.add('on');
+    } else {
+      chip.classList.toggle('on');
+    }
+
+    state[g] = [...group.querySelectorAll('.chip.on')].map(c => ({
+      name: c.textContent.replace(/\+?[\d.]+$|incluido/g, '').trim(),
+      price: +c.dataset.price
+    }));
+
     renderReceipt();
   });
 });
