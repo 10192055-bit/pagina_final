@@ -1,39 +1,64 @@
+/* 
+   VARIABLES GLOBALES
+   Guardan los colores principales del sitio para reutilizarlos
+   en todo el CSS con var(--nombre)
+*/
 :root{
-  --black:#000000;
-  --coal:#15100b;
-  --panel:#1c1410;
-  --line:#2e2018;
-  --red:#e5231b;
-  --red-deep:#a81410;
-  --orange:#ff7a18;
-  --amber:#ffb25e;
-  --ink:#fff3e4;
-  --muted:#c9a88a;
+  --black:#000000;      /* negro puro: fondo general */
+  --coal:#15100b;       /* marrón muy oscuro: fondos alternos */
+  --panel:#1c1410;      /* fondo de las tarjetas */
+  --line:#2e2018;       /* color de bordes y líneas */
+  --red:#e5231b;        /* rojo principal (marca) */
+  --red-deep:#a81410;   /* rojo oscuro */
+  --orange:#ff7a18;     /* naranja de acento */
+  --amber:#ffb25e;      /* ámbar (precios, detalles) */
+  --ink:#fff3e4;        /* color del texto principal */
+  --muted:#c9a88a;      /* color del texto secundario */
 }
+
+/*ESTILOS BASE */
+/* Quita márgenes y paddings por defecto del navegador;
+   border-box hace que padding y borde no agranden los elementos */
 *{margin:0;padding:0;box-sizing:border-box}
+
+/* Hace que al hacer clic en un enlace #seccion el scroll sea suave */
 html{scroll-behavior:smooth}
+
+/* Fondo negro, texto claro y fuente principal; evita scroll horizontal */
 body{background:var(--black);color:var(--ink);font-family:'Syne',sans-serif;overflow-x:hidden}
+
+/* Color de selección de texto */
 ::selection{background:var(--orange);color:var(--black)}
+
+/* Personalización de la barra de scroll lateral */
 ::-webkit-scrollbar{width:10px}
 ::-webkit-scrollbar-track{background:var(--coal)}
 ::-webkit-scrollbar-thumb{background:linear-gradient(var(--red),var(--orange));border-radius:5px}
 
+/* Las imágenes nunca sobresalen de su contenedor */
 img{max-width:100%;height:auto;display:block}
 
+/* BARRA DE NAVEGACIÓN*/
+/* Barra fija arriba con fondo translúcido difuminado (efecto vidrio) */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
+  position:fixed;top:0;left:0;right:0;z-index:100;   /* siempre visible encima de todo */
   display:flex;align-items:center;justify-content:space-between;
-  padding:16px clamp(20px,5vw,64px);
-  background:rgba(12,8,6,.72);backdrop-filter:blur(14px);
+  padding:16px clamp(20px,5vw,64px);                 /* clamp: se adapta al ancho de pantalla */
+  background:rgba(12,8,6,.72);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);   /* necesario para el difuminado en iPhone/iPad */
   border-bottom:1px solid var(--line);
 }
+/* Logo de la marca */
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
 .brand b{font-weight:800;font-size:1.05rem;letter-spacing:.14em}
 .brand b i{color:var(--orange);font-style:normal}
+/* Enlaces del menú */
 .nav-links{display:flex;gap:clamp(14px,3vw,36px);list-style:none}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;transition:color .25s}
 .nav-links a:hover{color:var(--orange)}
 
+/* Botón hamburguesa: oculto en escritorio, se muestra en celular */
 .nav-toggle{
   display:none;
   flex-direction:column;
@@ -43,6 +68,7 @@ nav{
   cursor:pointer;
   padding:0;
 }
+/* Las 3 rayitas del botón hamburguesa */
 .nav-toggle span{
   display:block;
   width:100%;height:3px;
@@ -50,162 +76,176 @@ nav{
   border-radius:2px;
   transition:transform .3s ease,opacity .3s ease;
 }
+/* Cuando el menú está abierto, las rayitas se transforman en una "X" */
 .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
 .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
 .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
 
+/* Fondo oscuro detrás del menú móvil: cubre la página y
+   al tocarlo se cierra el menú (solo se activa en celulares) */
+.nav-overlay{
+  position:fixed;inset:0;z-index:98;
+  background:rgba(0,0,0,.6);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .35s ease,visibility .35s ease;
+}
+.nav-overlay.show{opacity:1;visibility:visible;pointer-events:auto}
+
+/* Bloquea el scroll de la página mientras el menú móvil está abierto */
+body.no-scroll{overflow:hidden}
+
+/* HERO (PORTADA PRINCIPAL)*/
+/* Ocupa casi toda la pantalla con imagen de fondo y degradados de color */
 .hero{
-  min-height:100svh;
+  min-height:100vh;                                   /* respaldo para navegadores viejos */
+  min-height:100svh;                                  /* altura real de la pantalla en celulares */
   display:grid;
   grid-template-columns:1fr;
   align-items:center;
   gap:32px;
   padding:140px clamp(20px,6vw,80px) 60px;
   background:
-    radial-gradient(900px 500px at 85% 15%, rgba(229,35,27,.16), transparent 60%),
-    radial-gradient(700px 500px at 10% 85%, rgba(255,122,24,.12), transparent 60%),
-    linear-gradient(rgba(12,8,6,.78), rgba(12,8,6,.88)),
-    url("img/neruko%20para%20la%20pagina.png") center/cover no-repeat;
+    radial-gradient(900px 500px at 85% 15%, rgba(229,35,27,.16), transparent 60%),  /* brillo rojo */
+    radial-gradient(700px 500px at 10% 85%, rgba(255,122,24,.12), transparent 60%), /* brillo naranja */
+    linear-gradient(rgba(12,8,6,.78), rgba(12,8,6,.88)),                            /* capa oscura para leer el texto */
+    url("img/neruko%20para%20la%20pagina.png") center/cover no-repeat;              /* imagen de fondo */
 }
+/* Texto decorativo japonés */
 .hero-copy .jp{font-family:'Shippori Mincho',serif;color:var(--red);letter-spacing:.4em;font-size:clamp(.8rem,1.4vw,1rem);margin-bottom:14px;display:block}
+/* Título grande que se adapta al tamaño de pantalla */
 .hero-copy h1{font-size:clamp(2.4rem,7.2vw,6.2rem);font-weight:800;line-height:.95;text-transform:uppercase}
+/* Palabra resaltada en naranja */
 .hero-copy h1 em{font-style:normal;color:var(--orange)}
+/* Palabra con letras "huecas" (borde rojo sin relleno) */
 .hero-copy h1 .stroke{color:transparent;-webkit-text-stroke:2px var(--red)}
+/* Párrafo descriptivo */
 .hero-copy p{margin-top:22px;max-width:52ch;color:var(--muted);font-size:clamp(.95rem,1.3vw,1.08rem);line-height:1.65}
+/* Fila que contiene los botones */
 .cta-row{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap}
+
+/* BOTONES */
+/* Estilo base de todos los botones (forma de píldora) */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
   padding:15px 30px;border-radius:999px;font-weight:700;font-size:.86rem;
   letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
   border:1.5px solid var(--orange);cursor:pointer;transition:all .28s ease;font-family:'Syne',sans-serif;
 }
+/* Botón relleno con degradado rojo-naranja y sombra */
 .btn-solid{background:linear-gradient(120deg,var(--red),var(--orange));color:var(--ink);border-color:transparent;box-shadow:0 10px 32px -10px rgba(255,122,24,.55)}
 .btn-solid:hover{transform:translateY(-3px);box-shadow:0 18px 42px -12px rgba(255,122,24,.65)}
+/* Botón transparente con texto ámbar */
 .btn-ghost{color:var(--amber)}
 .btn-ghost:hover{background:rgba(255,122,24,.1);transform:translateY(-3px)}
 
+/* Imagen decorativa del hero: oculta en celular */
 .hero-art{display:none}
 
-section{padding:clamp(70px,10vw,130px) clamp(20px,6vw,80px)}
+/* SECCIONES GENERALES */
+/* Espaciado interior común de todas las secciones.
+   scroll-margin-top deja espacio al saltar desde el menú
+   para que la barra fija no tape el título de la sección */
+section{padding:clamp(70px,10vw,130px) clamp(20px,6vw,80px);scroll-margin-top:90px}
+/* Etiqueta pequeña naranja con rayita roja (ej. "El menú") */
 .sec-tag{font-family:'Space Mono',monospace;color:var(--orange);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
 .sec-tag::before{content:"";width:38px;height:2px;background:var(--red)}
+/* Título grande de cada sección */
 .sec-title{font-size:clamp(2rem,4.6vw,3.6rem);font-weight:800;text-transform:uppercase;line-height:1.02;margin:14px 0 10px}
+/* Palabra con letras huecas dentro del título */
 .sec-title em{font-style:normal;color:transparent;-webkit-text-stroke:1.6px var(--orange)}
+/* Subtítulo gris cálido */
 .sec-sub{color:var(--muted);max-width:60ch;line-height:1.7}
 
+/* TARJETAS DEL MENÚ */
+/* Cuadrícula automática: las tarjetas se acomodan solas según el ancho */
 .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:48px}
+/* Cada tarjeta de platillo */
 .card{
   background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:26px;
   position:relative;overflow:hidden;transition:transform .3s ease,border-color .3s ease;
 }
+/* Resplandor naranja que aparece arriba al pasar el mouse */
 .card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px 160px at 50% -40%,rgba(255,122,24,.18),transparent);opacity:0;transition:opacity .3s}
+/* Efecto al pasar el mouse: la tarjeta sube y el borde se pone rojo */
 .card:hover{transform:translateY(-8px);border-color:var(--red)}
 .card:hover::before{opacity:1}
+/* Parte superior de la tarjeta donde va el precio */
 .card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+/* Icono cuadrado con degradado (no se usa en el HTML actual) */
 .card-icon{
   width:54px;height:54px;border-radius:14px;display:grid;place-items:center;
   background:linear-gradient(135deg,var(--red),var(--orange));
   box-shadow:0 8px 24px -8px rgba(255,60,20,.6);
 }
 .card-icon img{width:30px;height:30px;display:block;object-fit:cover}
+/* Precio en fuente monoespaciada y color ámbar */
 .price{font-family:'Space Mono',monospace;font-weight:700;color:var(--amber);font-size:1.05rem}
+/* Nombre del platillo */
 .card h3{font-size:1.15rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
 .card h3 small{display:block;font-family:'Shippori Mincho',serif;color:var(--red);font-size:.72rem;letter-spacing:.3em;margin-top:4px}
+/* Descripción del platillo */
 .card p{color:var(--muted);font-size:.88rem;line-height:1.6;margin-top:12px;min-height:66px}
+/* Nivel de picante: circulitos que se encienden (no se usa actualmente) */
 .spice{display:flex;gap:5px;margin-top:14px}
 .spice i{width:14px;height:14px;border-radius:50%;background:var(--line)}
 .spice i.on{background:linear-gradient(180deg,var(--orange),var(--red))}
+/* Etiqueta esquinada "Más pedida"/"Especial" (cinta diagonal) */
 .tag-hot{position:absolute;top:16px;right:-34px;transform:rotate(45deg);background:var(--red);color:var(--ink);font-size:.62rem;font-weight:800;letter-spacing:.18em;padding:6px 40px}
 
-.builder{background:var(--coal)}
-.builder-grid{display:grid;grid-template-columns:1fr;gap:clamp(24px,4vw,56px);margin-top:48px;align-items:start}
-.opt-group{margin-bottom:30px}
-.opt-group h4{font-size:.82rem;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.opt-group h4::after{content:"";flex:1;height:1px;background:var(--line)}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{
-  border:1.5px solid var(--line);background:var(--panel);color:var(--ink);
-  padding:11px 18px;border-radius:999px;cursor:pointer;font-family:'Syne',sans-serif;
-  font-size:.84rem;font-weight:600;transition:all .22s ease;
-}
-.chip small{color:var(--muted);font-family:'Space Mono',monospace;font-size:.72rem;margin-left:6px}
-.chip:hover{border-color:var(--orange)}
-.chip.on{background:linear-gradient(120deg,var(--red),var(--orange));border-color:transparent;box-shadow:0 8px 22px -8px rgba(255,80,20,.6)}
-.chip.on small{color:rgba(255,243,228,.85)}
-.receipt{
-  position:sticky;top:100px;background:var(--ink);color:#241209;border-radius:14px;
-  padding:26px 24px;font-family:'Space Mono',monospace;
-}
-.receipt h4{text-align:center;letter-spacing:.3em;font-size:.8rem;border-bottom:2px dashed #d8b797;padding-bottom:12px}
-.receipt ul{list-style:none;margin:16px 0;min-height:120px}
-.receipt li{display:flex;justify-content:space-between;font-size:.82rem;padding:5px 0;border-bottom:1px dotted #e4c8ab}
-.receipt li span:last-child{font-weight:700}
-.receipt .empty{color:#b08a68;font-style:italic}
-.total-row{display:flex;justify-content:space-between;font-weight:700;font-size:1.25rem;border-top:2px dashed #d8b797;padding-top:14px}
-.receipt .btn{width:100%;margin-top:18px;border:none}
-.receipt-note{text-align:center;font-size:.68rem;margin-top:12px;color:#a67c58;letter-spacing:.1em}
+/*  SECCIÓN HISTORIA */
+/* (La historia usa las clases generales: sec-tag, sec-title, sec-sub) */
 
-.visit-grid{display:grid;grid-template-columns:1fr;gap:clamp(24px,4vw,60px);margin-top:48px}
-.info-block{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:30px}
-.info-block h4{color:var(--orange);text-transform:uppercase;letter-spacing:.2em;font-size:.85rem;margin-bottom:18px}
-.info-block table{width:100%;border-collapse:collapse;font-size:.92rem}
-.info-block td{padding:9px 0;color:var(--muted)}
-.info-block td:last-child{text-align:right;font-family:'Space Mono',monospace;color:var(--ink)}
-.info-block td.closed{color:var(--red)}
-.map-ph{
-  height:220px;border-radius:16px;margin-bottom:18px;position:relative;overflow:hidden;
-  background:
-    repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 44px),
-    repeating-linear-gradient(0deg,var(--line) 0 1px,transparent 1px 44px),
-    radial-gradient(circle at 62% 40%,rgba(229,35,27,.35),transparent 45%),var(--coal);
-}
-.pin{position:absolute;left:62%;top:40%;width:18px;height:18px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 8px rgba(255,122,24,.25);animation:pulse 1.6s ease infinite}
-.addr{color:var(--muted);font-size:.95rem;line-height:1.8}
-.addr b{color:var(--ink)}
-
+/*PIE DE PÁGINA */
 footer{border-top:1px solid var(--line);padding:44px clamp(20px,6vw,80px);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:var(--coal)}
 footer .brand b{font-size:.95rem}
 footer p{color:var(--muted);font-size:.78rem;letter-spacing:.08em}
 
-.toast{
-  position:fixed;left:50%;bottom:30px;transform:translate(-50%,140%);z-index:200;
-  background:linear-gradient(120deg,var(--red),var(--orange));color:var(--ink);
-  padding:16px 28px;border-radius:14px;font-weight:700;font-size:.9rem;
-  box-shadow:0 18px 44px -10px rgba(255,80,20,.6);
-  transition:transform .45s cubic-bezier(.2,.9,.3,1.2);max-width:90vw;
-}
-.toast.show{transform:translate(-50%,0)}
-
+/*  ANIMACIONES AL HACER SCROLL (efecto "reveal") */
+/* Estado inicial: invisible y desplazado hacia abajo.
+   JavaScript agrega la clase "in" cuando el elemento entra en pantalla */
 .reveal{opacity:0;transform:translateY(34px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+/* Estado final: visible en su posición normal */
 .reveal.in{opacity:1;transform:none}
+/* Retrasos escalonados para que los elementos aparezcan uno tras otro */
 .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
 
+/* Animación de pulso (latido) usada por el pin del mapa */
 @keyframes pulse{50%{opacity:.35}}
 
+/*  DISEÑO RESPONSIVO — TABLET Y ESCRITORIO (768px o más)*/
 @media(min-width:768px){
-  .hero{grid-template-columns:1.05fr .95fr}
-  .hero-art{display:block}
-  .builder-grid{grid-template-columns:1.25fr .75fr}
-  .visit-grid{grid-template-columns:1fr 1fr}
+  .hero{grid-template-columns:1.05fr .95fr}   /* hero en 2 columnas: texto + imagen */
+  .hero-art{display:block}                    /* muestra la imagen de Neruko */
 }
 
+/* DISEÑO RESPONSIVO — CELULAR (menos de 768px) */
 @media(max-width:767px){
-  .nav-toggle{display:flex}
+  /* Aparece el botón hamburguesa (position:relative sirve para
+     la zona táctil extra del ::after de abajo) */
+  .nav-toggle{display:flex;position:relative}
+  /* Zona táctil invisible más grande alrededor del botón,
+     para que sea fácil de presionar con el dedo */
+  .nav-toggle::after{content:"";position:absolute;inset:-12px}
+  /* El menú se convierte en un panel lateral deslizante */
   .nav-links{
     position:fixed;top:0;right:0;bottom:0;
-    width:min(85vw,320px);
+    width:min(80vw,320px);
     background:var(--coal);
     border-left:1px solid var(--line);
+    box-shadow:-24px 0 60px rgba(0,0,0,.55);   /* sombra para separarlo del fondo */
     flex-direction:column;align-items:center;justify-content:center;
     gap:28px;
-    padding:80px 24px 40px;
-    transform:translateX(100%);
-    transition:transform .4s cubic-bezier(.2,.9,.3,1);
+    /* respeta la barra inferior de gestos del celular (iPhone) */
+    padding:80px 24px calc(40px + env(safe-area-inset-bottom));
+    transform:translateX(105%);               /* escondido fuera de la pantalla */
+    visibility:hidden;                        /* no se puede tocar mientras está oculto */
+    transition:transform .4s cubic-bezier(.2,.9,.3,1),visibility .4s;
     z-index:99;
   }
-  .nav-links.open{transform:translateX(0)}
-  .nav-links a{font-size:1.1rem}
+  /* Cuando JavaScript agrega la clase "open", el panel entra */
+  .nav-links.open{transform:translateX(0);visibility:visible}
+  /* Enlaces más grandes y con más área de toque (fáciles de presionar) */
+  .nav-links a{font-size:1.1rem;padding:10px 20px}
   .hero{padding-top:120px}
-  .hero-copy h1{font-size:clamp(2.2rem,10vw,4rem)}
-  .receipt{position:static}
+  .hero-copy h1{font-size:clamp(2.2rem,10vw,4rem)}  /* título más chico en celular */
 }

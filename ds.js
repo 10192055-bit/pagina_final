@@ -1,75 +1,71 @@
+
+// FUNCIONES AUXILIARES PARA SELECCIONAR ELEMENTOS DEL HTML
+
+// $  -> devuelve el PRIMER elemento que coincida con el selector CSS
+// $$ -> devuelve TODOS los elementos que coincidan, en una lista
+// Ejemplo: $('.card') trae una tarjeta; $$('.card') trae todas
 const $ = (s, c=document) => c.querySelector(s);
 const $$ = (s, c=document) => [...c.querySelectorAll(s)];
 
+
+// ANIMACIONES AL HACER SCROLL (clase "reveal")
+
+// IntersectionObserver avisa cuando un elemento entra en pantalla.
+// Sirve para que las secciones aparezcan con una animación suave
+// en lugar de verse todas de golpe al cargar la página.
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    e.target.classList.add('in');
-    io.unobserve(e.target);
+    if (!e.isIntersecting) return;      // si aún no es visible, no hace nada
+    e.target.classList.add('in');       // agrega la clase "in" -> el CSS lo muestra animado
+    io.unobserve(e.target);             // deja de observarlo (la animación solo pasa una vez)
   });
-}, { threshold: .15 });
+}, { threshold: .15 });                  // se activa cuando el 15% del elemento es visible
+
+// Observa todos los elementos que tengan la clase "reveal"
 $$('.reveal').forEach(el => io.observe(el));
 
-const navToggle = $('#navToggle');
-const navLinks = $('#navLinks');
-navToggle.addEventListener('click', () => {
-  const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-  navToggle.setAttribute('aria-expanded', !expanded);
-  navLinks.classList.toggle('open');
-});
-$$('.nav-links a').forEach(a => a.addEventListener('click', () => {
-  navLinks.classList.remove('open');
-  navToggle.setAttribute('aria-expanded', 'false');
-}));
 
-const state = {};
-function renderReceipt() {
-  const list = $('#receiptList');
-  list.innerHTML = '';
-  let total = 0, any = false;
-  Object.values(state).forEach(items => items.forEach(({name, price}) => {
-    any = true; total += price;
-    const li = document.createElement('li');
-    li.innerHTML = `<span>${name}</span><span>$${price.toFixed(2)}</span>`;
-    list.appendChild(li);
-  }));
-  if (!any) list.innerHTML = '<li class="empty"><span>Elige tu ramen...</span><span>--</span></li>';
-  $('#totalPrice').textContent = '$' + total.toFixed(2);
+// MENÚ PARA CELULAR (BOTÓN HAMBURGUESA)
+
+const navToggle = $('#navToggle');    // botón de 3 rayitas
+const navLinks = $('#navLinks');      // lista de enlaces del menú
+const navOverlay = $('#navOverlay');  // fondo oscuro detrás del menú
+
+// Abre o cierra el menú según "open" (true = abrir, false = cerrar).
+// Está centralizado en una función para que todos los cierres
+// (botón, fondo oscuro, enlace, Escape) hagan exactamente lo mismo.
+function setMenu(open) {
+  navToggle.setAttribute('aria-expanded', open);       // cambia el botón a forma de "X"
+  navLinks.classList.toggle('open', open);             // muestra/oculta el panel (el CSS anima)
+  navOverlay.classList.toggle('show', open);           // muestra/oculta el fondo oscuro
+  document.body.classList.toggle('no-scroll', open);   // bloquea el scroll de la página con el menú abierto
 }
 
-$$('.chips').forEach(group => {
-  const g = group.dataset.group;
-  state[g] = [];
-
-  group.addEventListener('click', e => {
-    const chip = e.target.closest('.chip');
-    if (!chip) return;
-
-    const multi = group.dataset.multi === 'true';
-    const yaEstabaActivo = chip.classList.contains('on');
-
-    if (!multi) {
-      group.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
-      yaEstabaActivo ? chip.classList.remove('on') : chip.classList.add('on');
-    } else {
-      chip.classList.toggle('on');
-    }
-
-    state[g] = [...group.querySelectorAll('.chip.on')].map(c => ({
-      name: c.textContent.replace(/\+?[\d.]+$|incluido/g, '').trim(),
-      price: +c.dataset.price
-    }));
-
-    renderReceipt();
-  });
+// Clic en el botón hamburguesa: alterna entre abierto y cerrado
+navToggle.addEventListener('click', () => {
+  setMenu(navToggle.getAttribute('aria-expanded') !== 'true');
 });
 
-let toastTimer;
-$('#orderBtn').addEventListener('click', () => {
-  $('#toastMsg').textContent = `Pedido enviado. Total ${$('#totalPrice').textContent}. Listo en ~12 minutos.`;
-  $('#toast').classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => $('#toast').classList.remove('show'), 3200);
+// Clic en el fondo oscuro: cierra el menú
+navOverlay.addEventListener('click', () => setMenu(false));
+
+// Si se toca un enlace del menú, este se cierra automáticamente
+$$('.nav-links a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+// Tecla Escape: también cierra el menú (útil con teclado)
+window.addEventListener('keydown', e => {
+  if (e.key === 'Escape') setMenu(false);
 });
 
+// Si la pantalla se agranda (girar el celular, redimensionar ventana),
+// se resetea el menú para que no quede abierto en escritorio
+window.addEventListener('resize', () => {
+  if (window.innerWidth >= 768) setMenu(false);
+});
+
+
+// AÑO AUTOMÁTICO EN EL PIE DE PÁGINA
+
+// Inserta el año actual dentro del <span id="year"> del footer,
+// así no hay que cambiarlo a mano cada año
 $('#year').textContent = new Date().getFullYear();
