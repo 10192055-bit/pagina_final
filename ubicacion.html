@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script src="ds.js" defer ></script>
+</head>
+<body>
+    <nav class="barra-navegacion">
+        <!-- Logo de la página; al hacer clic lleva al inicio (#inicio) -->
+        <a class="marca" href="index.html">
+        <img src="img/logo_final.png" alt="" width="150">
+        </a>
+        <!-- Botón hamburguesa: solo se ve en celulares, abre/cierra el menú -->
+        <button class="boton-menu" id="botonMenu" aria-label="Abrir menú" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <!-- Lista de enlaces del menú. Cada uno lleva a una sección de la página -->
+        <ul class="contenedor-enlaces" id="listaEnlaces">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="menu.html">Menú</a></li>
+            <li><a href="historia.html">Historia</a></li>
+        </ul>
+    </nav>
+
+    <!-- Fondo oscuro detrás del menú móvil: se cierra el menú tocando afuera -->
+    <div class="capa-menu" id="capaMenu"></div>
+</body>
+</html>

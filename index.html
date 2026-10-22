@@ -1,200 +1,100 @@
 <!DOCTYPE html>
-<!-- Define el tipo de documento: HTML5 -->
 <html lang="es">
-<!-- lang="es" indica que el contenido de la página está en español -->
 <head>
-    <!-- Configuración básica del documento (no visible en la página) -->
     <meta charset="UTF-8">
-    <!-- Permite usar acentos, ñ y caracteres especiales -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Hace que la página se vea bien en celulares (diseño responsive) -->
-    <title>Naruko Ramen</title>
-    <!-- Texto que aparece en la pestaña del navegador -->
+    <title>Naruko</title>
     <link rel="stylesheet" href="estilo.css">
-    <!-- Conecta la hoja de estilos CSS que da el diseño a la página -->
     <script src="ds.js" defer></script>
-    <!-- Carga el JavaScript. "defer" hace que se ejecute después de cargar el HTML -->
+  
 </head>
 <body>
 
-<!--  BARRA DE NAVEGACIÓN (NAV)  -->
+<!--  BARRA DE NAVEGACIÓN  -->
 <!-- Barra fija superior: contiene el logo y el menú de enlaces -->
-    <nav>
+    <nav class="barra-navegacion">
         <!-- Logo de la página; al hacer clic lleva al inicio (#inicio) -->
-        <a class="brand" href="#inicio">
+        <a class="marca" href="#inicio">
         <img src="img/logo_final.png" alt="" width="150">
         </a>
         <!-- Botón hamburguesa: solo se ve en celulares, abre/cierra el menú -->
-        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
-            <span></span><span></span><span></span>
+        <button class="boton-menu" id="botonMenu" aria-label="Abrir menú" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
         <!-- Lista de enlaces del menú. Cada uno lleva a una sección de la página -->
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#menu">Menú</a></li>
-            <li><a href="#historia">Historia</a></li>
+        <ul class="contenedor-enlaces" id="listaEnlaces">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="menu.html">Menú</a></li>
+            <li><a href="historia.html">Historia</a></li>
+
         </ul>
     </nav>
 
     <!-- Fondo oscuro que aparece detrás del menú en celulares.
          Sirve para cerrar el menú tocando afuera de él -->
-    <div class="nav-overlay" id="navOverlay"></div>
+    <div class="capa-menu" id="capaMenu"></div>
 
-<!--  SECCIÓN HERO (PORTADA)  -->
+<!--  PORTADA (HERO)  -->
 <!-- Es la primera pantalla que ve el usuario: título grande, descripción y botones -->
-    <header class="hero" id="inicio">
-        <div class="hero-copy">
+    <header class="portada" id="inicio">
+        <div class="texto-portada">
             <!-- Texto decorativo japonés (queda vacío, se llena por CSS si se desea) -->
-            <span class="jp"></span>
-            <!-- Título principal. <em> resalta en color y .stroke crea texto con borde -->
-            <h1>SABOR,<br><em>TRADICIÓN</em> Y<br><span class="stroke">FELICIDAD.</span></h1>
+            <span class="texto-japones"></span>
+            <!-- Título principal. <em> resalta en color y .texto-contorno crea texto con borde -->
+            <h1>SABOR,<br><em>TRADICIÓN  </em> Y<br><span class="texto-contorno">FELICIDAD.</span></h1>
             <!-- Párrafo de bienvenida -->
             <p>Dieciocho horas de cocción lenta, fideos estirados a mano cada mañana y una receta que Neruko a perfeccionado. Bienvenido al ramen honesto de barrio.</p>
-            <!-- Botones de llamada a la acción (CTA) -->
-            <div class="cta-row">
-                <a class="btn btn-ghost" href="#menu">Ver el menú</a>
-            </div>
+            <!-- Fila que agrupa los botones de llamada a la acción (CTA) -->
+
         </div>
-        <!-- Imagen decorativa de la mascota Neruko (lado derecho) -->
-           <div class="hero-art">
+        <!-- Capa visual decorativa de la mascota Neruko (lado derecho) -->
+           <div class="capa-visual">
             <img src="img/neruko%20para%20la%20pagina.png" alt="Conoce a Neruko">
         </div>
 
     </header>
 
+<!--  CARRUSEL DE PLATILLOS  -->
+<!-- Muestra las fotos del menú una a la vez, con flechas y puntitos de navegación -->
+    <section class="seccion bloque-carrusel" aria-label="Galería de platillos">
+        <p class="etiqueta-seccion">GALERÍA</p>
+        <h2 class="titulo-seccion">NUESTROS <em>PLATILLOS</em></h2>
 
-
-
-
-<!--  SECCIÓN MENÚ  -->
-<!-- Muestra las tarjetas con cada platillo, precio, foto y descripción -->
-    <section id="menu">
-        <!-- Etiqueta pequeña decorativa arriba del título -->
-        <p class="sec-tag reveal">El menú</p>
-        <!-- Título de la sección -->
-        <h2 class="sec-title reveal d1">Descubre los sabores de <em>Japón</em> </h2>
-        <!-- Subtítulo descriptivo -->
-        <p class="sec-sub reveal d2">Nuestro menú ofrece una amplia variedad de platillos inspirados en la gastronomía japonesa, combinando sabores tradicionales, ingredientes frescos y una presentación cuidadosamente elaborada.</p>
-
-        <!-- "reveal" = animación al hacer scroll. "d1/d2/d3" = retraso de la animación -->
-
-        <!-- Contenedor de las tarjetas del menú (la cuadrícula se arma en CSS) -->
-        <div class="menu-grid">
-
-            <!-- TARJETA 1: platillo con etiqueta "Más pedida" -->
-            <article class="card reveal">
-                <center><div class="tag-hot">Más pedida</div></center>
-                <div class="card-top">
-                    <span class="price">$13.50</span>
+        <div class="carrusel">
+            <!-- Ventana que recorta: solo se ve la imagen actual -->
+            <div class="ventana-carrusel">
+                <!-- Fila deslizante: el JavaScript la mueve con transform -->
+                <div class="pista-carrusel" id="pistaCarrusel">
+                    <div class="imagen-carrusel"><img src="img/Shoyu%20Cl%C3%A1sico.jpg" alt="Shoyu Clásico"></div>
+                    <div class="imagen-carrusel"><img src="img/Miso%20Robusto.jpg" alt="Miso Robusto"></div>
+                    <div class="imagen-carrusel"><img src="img/Tonkotsu%20Kuro.jpg" alt="Tonkotsu Kuro"></div>
+                    <div class="imagen-carrusel"><img src="img/Tantanmen%20Fuego.jpg" alt="Tantanmen Fuego"></div>
+                    <div class="imagen-carrusel"><img src="img/Yuzu%20Shio.jpg" alt="Yuzu Shio"></div>
+                    <div class="imagen-carrusel"><img src="img/Kinoku%20Veggie.jpg" alt="Kinoku Veggie"></div>
+                    <div class="imagen-carrusel"><img src="img/Gyoza.jpg" alt="Gyoza"></div>
+                    <div class="imagen-carrusel"><img src="img/Sushi.jpg" alt="Sushi"></div>
                 </div>
-                <h3>Tonkotsu Kuro</h3>
-                <center><img src="img/Tonkotsu%20Kuro.jpg" alt="" width="320"></center>
-                 <p>Caldo de cerdo 18 horas, aceite de ajo negro, chashu lacado, ajitama cremoso y cebolleta. El clásico que fundó la casa.</p>
+            </div>
 
-            </article>
+            <!-- Flechas laterales para cambiar de imagen -->
+            <button class="boton-carrusel anterior" id="flechaAnterior" aria-label="Imagen anterior">&#10094;</button>
+            <button class="boton-carrusel siguiente" id="flechaSiguiente" aria-label="Imagen siguiente">&#10095;</button>
 
-            <!-- TARJETA 2 -->
-            <article class="card reveal d1">
-                <div class="card-top">
-                    <span class="price">$12.00</span>
-                </div>
-                <h3>Miso Robusto</h3>
-                <center><img src="img/Miso%20Robusto.jpg" alt="" width="400" height="222"></center>
-                <p>Miso con mantequilla, maíz asado, wakame y cerdo desmenuzado. Cuerpo profundo para días fríos.</p>
-
-            </article>
-
-            <!-- TARJETA 3 -->
-            <article class="card reveal d2">
-                <div class="card-top">
-                    <span class="price">$11.50</span>
-                </div>
-                <h3>Shoyu Clásico</h3>
-                <center><img src="img/Shoyu%20Cl%C3%A1sico.jpg" alt="" width="250"></center>
-                <p>Salsa de soya artesanal, dashi de bonito, naruto, huevo marinado y brotes crujientes. Ligero, limpio, eterno.</p>
-
-            </article>
-
-            <!-- TARJETA 4: platillo con etiqueta "Especial" -->
-            <article class="card reveal d1">
-                <div class="tag-hot">Especial</div>
-                <div class="card-top">
-                    <span class="price">$13.00</span>
-                </div>
-                <h3>Tantanmen Fuego</h3>
-                <center><img src="img/Tantanmen%20Fuego.jpg" alt="" width="240"></center>
-               <p>Sésamo, chili de Sichuan, carne picada crocante y aceite rojo flotando como lava. Firma el disclaimer.</p>
-
-            </article>
-
-            <!-- TARJETA 5 -->
-            <article class="card reveal d2">
-                <div class="card-top">
-                    <span class="price">$11.00</span>
-                </div>
-                <h3>Yuzu Shio</h3>
-                <center><img src="img/Yuzu%20Shio.jpg" alt="" width="310"></center>
-                <p>Caldo claro de sal marina, cítrico yuzu, pollo tierno y verduras de estación. Frescura que abraza.</p>
-            </article>
-
-            <!-- TARJETA 6 -->
-            <article class="card reveal d3">
-                <div class="card-top">
-                    <span class="price">$10.50</span>
-                </div>
-                <h3>Kinoku Veggie</h3>
-                <center><img src="img/Kinoku Veggie.jpg" alt="" width="300"></center>
-                <p>Cinco hongos, caldo de kombu shiitake, tofu sedoso y aceite de sésamo tostado. Cien por ciento vegetal.</p>
-            </article>
-
-            <!-- TARJETA 7 -->
-             <article class="card reveal d3">
-                <div class="card-top">
-                    <span class="price">$9.50</span>
-                </div>
-                <h3>Sushi</h3>
-                <center><img src="img/Sushi.jpg" alt="" width="350"></center>
-                <p>Rollos perfectos que combinan la frescura del mar, arroz sazonado a la perfección y texturas crujientes. Una explosión de sabor sutil, fresca y sofisticada en cada pieza.</p>
-            </article>
-
-            <!-- TARJETA 8 -->
-             <article class="card reveal d3">
-                <div class="card-top">
-                    <span class="price">$6.50</span>
-                </div>
-                <h3>Gyoza</h3>
-                <center><img src="img/Gyoza.jpg" alt="" width="350"></center>
-                <p>Deliciosas empanadillas japonesas preparadas al estilo tradicional: doradas a la plancha por fuera para un toque crujiente.</p>
-            </article>
-
+            <!-- Puntitos indicadores: los crea el JavaScript -->
+            <div class="puntos-carrusel" id="puntosCarrusel"></div>
         </div>
     </section>
 
-<!--  SECCIÓN HISTORIA  -->
-<!-- Cuenta la historia de la mascota Neruko -->
-    <section id="historia">
-        <p class="sec-tag reveal">Nuestra historia</p>
-        <h2 class="sec-title reveal d1">Nacimos de un acto de <em>bondad</em> y una promesa</h2>
-        <p class="sec-sub reveal d2">
-            Un día frío, un gatito atigrado apareció en la parte trasera del restaurante buscando refugio. Los cocineros lo alimentaron con caldo tibio y pescado fresco, y pronto encontró un hogar para siempre. Lo llamaron Naruko, por el narutomaki (el pastelito de pescado con remolino rosa) que tanto le fascina.
-
-Hoy es la mascota oficial de la casa: inspiró nuestro logotipo, recibe a los comensales desde la entrada y descansa junto a la barra principal. Su plato favorito sigue siendo el naruko, que espera con entusiasmo cada vez que los chefs preparan los tazones del día.
-
-Naruko nos recuerda que el amor por la comida y la cultura también se comparte con quienes más lo necesitan.
-        </p>
-    </section>
-
-<!--  PIE DE PÁGINA (FOOTER) -->
-<!-- Cierre de la página: logo, derechos de autor y redes sociales -->
-    <footer>
-        <!-- Logo; al hacer clic regresa al inicio -->
-        <a class="brand" href="#inicio">
-           <img src="img/log.png" alt="" width="150">
-        </a>
-        <!-- Texto de copyright. El año lo inserta JavaScript en el <span id="year"> -->
-        <p>© <span id="year"></span> Naruko Ramen — Hecho con caldo, paciencia y fuego.</p>
+<!--  PIE DE PÁGINA  -->
+<!-- Cierre de la página: derechos de autor y redes sociales -->
+    <footer class="pie-pagina">
+        <!-- Texto de copyright. El año lo inserta JavaScript en el <span id="anio"> -->
+        <p>© <span id="anio"></span> Naruko Ramen — Hecho con caldo, paciencia y fuego.</p>
 
         <!-- Enlaces a redes sociales (abren en pestaña nueva) -->
-        <div class="socials">
+        <div class="redes-sociales">
     <a href="https://instagram.com/tu-usuario" target="_blank" rel="noopener" aria-label="Instagram">
 
     </a>

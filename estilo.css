@@ -40,7 +40,7 @@ img{max-width:100%;height:auto;display:block}
 
 /* BARRA DE NAVEGACIÓN*/
 /* Barra fija arriba con fondo translúcido difuminado (efecto vidrio) */
-nav{
+.barra-navegacion{
   position:fixed;top:0;left:0;right:0;z-index:100;   /* siempre visible encima de todo */
   display:flex;align-items:center;justify-content:space-between;
   padding:16px clamp(20px,5vw,64px);                 /* clamp: se adapta al ancho de pantalla */
@@ -50,16 +50,16 @@ nav{
   border-bottom:1px solid var(--line);
 }
 /* Logo de la marca */
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
-.brand b{font-weight:800;font-size:1.05rem;letter-spacing:.14em}
-.brand b i{color:var(--orange);font-style:normal}
-/* Enlaces del menú */
-.nav-links{display:flex;gap:clamp(14px,3vw,36px);list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;transition:color .25s}
-.nav-links a:hover{color:var(--orange)}
+.marca{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.marca b{font-weight:800;font-size:1.05rem;letter-spacing:.14em}
+.marca b i{color:var(--orange);font-style:normal}
+/* Contenedor de los enlaces del menú */
+.contenedor-enlaces{display:flex;gap:clamp(14px,3vw,36px);list-style:none}
+.contenedor-enlaces a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;transition:color .25s}
+.contenedor-enlaces a:hover{color:var(--orange)}
 
 /* Botón hamburguesa: oculto en escritorio, se muestra en celular */
-.nav-toggle{
+.boton-menu{
   display:none;
   flex-direction:column;
   justify-content:space-between;
@@ -69,7 +69,7 @@ nav{
   padding:0;
 }
 /* Las 3 rayitas del botón hamburguesa */
-.nav-toggle span{
+.boton-menu span{
   display:block;
   width:100%;height:3px;
   background:var(--ink);
@@ -77,26 +77,26 @@ nav{
   transition:transform .3s ease,opacity .3s ease;
 }
 /* Cuando el menú está abierto, las rayitas se transforman en una "X" */
-.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
-.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
-.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
+.boton-menu[aria-expanded="true"] span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
+.boton-menu[aria-expanded="true"] span:nth-child(2){opacity:0}
+.boton-menu[aria-expanded="true"] span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
 
-/* Fondo oscuro detrás del menú móvil: cubre la página y
+/* Capa oscura detrás del menú móvil: cubre la página y
    al tocarlo se cierra el menú (solo se activa en celulares) */
-.nav-overlay{
+.capa-menu{
   position:fixed;inset:0;z-index:98;
   background:rgba(0,0,0,.6);
   opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .35s ease,visibility .35s ease;
 }
-.nav-overlay.show{opacity:1;visibility:visible;pointer-events:auto}
+.capa-menu.visible{opacity:1;visibility:visible;pointer-events:auto}
 
 /* Bloquea el scroll de la página mientras el menú móvil está abierto */
-body.no-scroll{overflow:hidden}
+body.sin-scroll{overflow:hidden}
 
-/* HERO (PORTADA PRINCIPAL)*/
+/* PORTADA (HERO PRINCIPAL)*/
 /* Ocupa casi toda la pantalla con imagen de fondo y degradados de color */
-.hero{
+.portada{
   min-height:100vh;                                   /* respaldo para navegadores viejos */
   min-height:100svh;                                  /* altura real de la pantalla en celulares */
   display:grid;
@@ -111,141 +111,219 @@ body.no-scroll{overflow:hidden}
     url("img/neruko%20para%20la%20pagina.png") center/cover no-repeat;              /* imagen de fondo */
 }
 /* Texto decorativo japonés */
-.hero-copy .jp{font-family:'Shippori Mincho',serif;color:var(--red);letter-spacing:.4em;font-size:clamp(.8rem,1.4vw,1rem);margin-bottom:14px;display:block}
+.texto-portada .texto-japones{font-family:'Shippori Mincho',serif;color:var(--red);letter-spacing:.4em;font-size:clamp(.8rem,1.4vw,1rem);margin-bottom:14px;display:block}
 /* Título grande que se adapta al tamaño de pantalla */
-.hero-copy h1{font-size:clamp(2.4rem,7.2vw,6.2rem);font-weight:800;line-height:.95;text-transform:uppercase}
+.texto-portada h1{font-size:clamp(2.4rem,7.2vw,6.2rem);font-weight:800;line-height:.95;text-transform:uppercase}
 /* Palabra resaltada en naranja */
-.hero-copy h1 em{font-style:normal;color:var(--orange)}
+.texto-portada h1 em{font-style:normal;color:var(--orange)}
 /* Palabra con letras "huecas" (borde rojo sin relleno) */
-.hero-copy h1 .stroke{color:transparent;-webkit-text-stroke:2px var(--red)}
+.texto-portada h1 .texto-contorno{color:transparent;-webkit-text-stroke:2px var(--red)}
 /* Párrafo descriptivo */
-.hero-copy p{margin-top:22px;max-width:52ch;color:var(--muted);font-size:clamp(.95rem,1.3vw,1.08rem);line-height:1.65}
+.texto-portada p{margin-top:22px;max-width:52ch;color:var(--muted);font-size:clamp(.95rem,1.3vw,1.08rem);line-height:1.65}
 /* Fila que contiene los botones */
-.cta-row{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap}
+.fila-botones{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap}
 
 /* BOTONES */
 /* Estilo base de todos los botones (forma de píldora) */
-.btn{
+.boton{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
   padding:15px 30px;border-radius:999px;font-weight:700;font-size:.86rem;
   letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
   border:1.5px solid var(--orange);cursor:pointer;transition:all .28s ease;font-family:'Syne',sans-serif;
 }
 /* Botón relleno con degradado rojo-naranja y sombra */
-.btn-solid{background:linear-gradient(120deg,var(--red),var(--orange));color:var(--ink);border-color:transparent;box-shadow:0 10px 32px -10px rgba(255,122,24,.55)}
-.btn-solid:hover{transform:translateY(-3px);box-shadow:0 18px 42px -12px rgba(255,122,24,.65)}
+.boton-solido{background:linear-gradient(120deg,var(--red),var(--orange));color:var(--ink);border-color:transparent;box-shadow:0 10px 32px -10px rgba(255,122,24,.55)}
+.boton-solido:hover{transform:translateY(-3px);box-shadow:0 18px 42px -12px rgba(255,122,24,.65)}
 /* Botón transparente con texto ámbar */
-.btn-ghost{color:var(--amber)}
-.btn-ghost:hover{background:rgba(255,122,24,.1);transform:translateY(-3px)}
+.boton-transparente{color:var(--amber)}
+.boton-transparente:hover{background:rgba(255,122,24,.1);transform:translateY(-3px)}
 
-/* Imagen decorativa del hero: oculta en celular */
-.hero-art{display:none}
+/* Capa visual decorativa de la portada: oculta en celular */
+.capa-visual{display:none}
 
 /* SECCIONES GENERALES */
 /* Espaciado interior común de todas las secciones.
    scroll-margin-top deja espacio al saltar desde el menú
    para que la barra fija no tape el título de la sección */
-section{padding:clamp(70px,10vw,130px) clamp(20px,6vw,80px);scroll-margin-top:90px}
+.seccion{padding:clamp(70px,10vw,130px) clamp(20px,6vw,80px);scroll-margin-top:90px}
 /* Etiqueta pequeña naranja con rayita roja (ej. "El menú") */
-.sec-tag{font-family:'Space Mono',monospace;color:var(--orange);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
-.sec-tag::before{content:"";width:38px;height:2px;background:var(--red)}
+.etiqueta-seccion{font-family:'Space Mono',monospace;color:var(--orange);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.etiqueta-seccion::before{content:"";width:38px;height:2px;background:var(--red)}
 /* Título grande de cada sección */
-.sec-title{font-size:clamp(2rem,4.6vw,3.6rem);font-weight:800;text-transform:uppercase;line-height:1.02;margin:14px 0 10px}
+.titulo-seccion{font-size:clamp(2rem,4.6vw,3.6rem);font-weight:800;text-transform:uppercase;line-height:1.02;margin:14px 0 10px}
 /* Palabra con letras huecas dentro del título */
-.sec-title em{font-style:normal;color:transparent;-webkit-text-stroke:1.6px var(--orange)}
+.titulo-seccion em{font-style:normal;color:transparent;-webkit-text-stroke:1.6px var(--orange)}
 /* Subtítulo gris cálido */
-.sec-sub{color:var(--muted);max-width:60ch;line-height:1.7}
+.subtitulo-seccion{color:var(--muted);max-width:60ch;line-height:1.7}
+
+/*  CARRUSEL DE IMÁGENES */
+/* Bloque general de la galería: .bloque-carrusel envuelve todo el carrusel */
+/* Contenedor general: los botones y los puntos se colocan encima.
+   max-width limita el ancho en pantallas grandes (laptop/PC) y
+   margin:auto lo centra; así las imágenes no ocupan todo el ancho */
+.carrusel{position:relative;max-width:1040px;margin-inline:auto}
+/* Ventana que recorta lo que se ve: mientras una imagen está quieta,
+   solo se ve su cuadro completo (las demás quedan recortadas afuera) */
+.ventana-carrusel{
+  overflow:hidden;border:1px solid var(--line);border-radius:20px;background:var(--panel);
+}
+/* Fila deslizante: se mueve con transform al cambiar de imagen */
+.pista-carrusel{display:flex;transition:transform .5s ease}
+/* Cada cuadro ocupa EXACTAMENTE todo el ancho (100%) para que
+   siempre se vea 1 sola imagen por cuadro.
+   El padding da el margen interior: la imagen no llega a los bordes
+   y se ve más pequeña sin que se cuelen las imágenes vecinas */
+.imagen-carrusel{min-width:100%;aspect-ratio:16/9;padding:clamp(10px,1.8vw,22px);display:grid;place-items:center;font-family:'Space Mono',monospace;color:var(--muted)}
+/* La imagen llena su cuadro sin deformarse y con esquinas redondeadas */
+.imagen-carrusel img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+/* Aviso que marca el espacio vacío: reemplázalo por tu <img> */
+.espacio-reservado{
+  display:grid;place-items:center;width:calc(100% - 40px);height:calc(100% - 40px);
+  border:2px dashed var(--line);border-radius:14px;
+  font-size:.85rem;letter-spacing:.28em;text-transform:uppercase;
+}
+/* Botones de flecha (anterior / siguiente) */
+.boton-carrusel{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:46px;height:46px;border-radius:50%;
+  background:rgba(12,8,6,.72);border:1px solid var(--line);color:var(--ink);
+  font-size:1.6rem;line-height:1;cursor:pointer;
+  display:grid;place-items:center;transition:all .25s ease;
+}
+.boton-carrusel:hover{background:var(--red);border-color:var(--red)}
+.boton-carrusel.anterior{left:16px}
+.boton-carrusel.siguiente{right:16px}
+/* Puntos indicadores (uno por cada imagen) */
+.puntos-carrusel{position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:center;gap:10px}
+.punto-carrusel{
+  width:10px;height:10px;border-radius:50%;border:none;padding:0;cursor:pointer;
+  background:var(--line);transition:all .25s ease;
+}
+.punto-carrusel.activo{width:26px;border-radius:999px;background:linear-gradient(180deg,var(--orange),var(--red))}
 
 /* TARJETAS DEL MENÚ */
-/* Cuadrícula automática: las tarjetas se acomodan solas según el ancho */
-.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:48px}
+/* Contenedor de tarjetas: se acomodan solas según el ancho */
+.contenedor-tarjetas{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:48px}
 /* Cada tarjeta de platillo */
-.card{
+.tarjeta{
   background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:26px;
   position:relative;overflow:hidden;transition:transform .3s ease,border-color .3s ease;
 }
 /* Resplandor naranja que aparece arriba al pasar el mouse */
-.card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px 160px at 50% -40%,rgba(255,122,24,.18),transparent);opacity:0;transition:opacity .3s}
+.tarjeta::before{content:"";position:absolute;inset:0;background:radial-gradient(400px 160px at 50% -40%,rgba(255,122,24,.18),transparent);opacity:0;transition:opacity .3s}
 /* Efecto al pasar el mouse: la tarjeta sube y el borde se pone rojo */
-.card:hover{transform:translateY(-8px);border-color:var(--red)}
-.card:hover::before{opacity:1}
+.tarjeta:hover{transform:translateY(-8px);border-color:var(--red)}
+.tarjeta:hover::before{opacity:1}
 /* Parte superior de la tarjeta donde va el precio */
-.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.tarjeta-cabecera{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 /* Icono cuadrado con degradado (no se usa en el HTML actual) */
-.card-icon{
+.icono-tarjeta{
   width:54px;height:54px;border-radius:14px;display:grid;place-items:center;
   background:linear-gradient(135deg,var(--red),var(--orange));
   box-shadow:0 8px 24px -8px rgba(255,60,20,.6);
 }
-.card-icon img{width:30px;height:30px;display:block;object-fit:cover}
+.icono-tarjeta img{width:30px;height:30px;display:block;object-fit:cover}
 /* Precio en fuente monoespaciada y color ámbar */
-.price{font-family:'Space Mono',monospace;font-weight:700;color:var(--amber);font-size:1.05rem}
+.precio{font-family:'Space Mono',monospace;font-weight:700;color:var(--amber);font-size:1.05rem}
 /* Nombre del platillo */
-.card h3{font-size:1.15rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
-.card h3 small{display:block;font-family:'Shippori Mincho',serif;color:var(--red);font-size:.72rem;letter-spacing:.3em;margin-top:4px}
+.tarjeta h3{font-size:1.15rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.tarjeta h3 small{display:block;font-family:'Shippori Mincho',serif;color:var(--red);font-size:.72rem;letter-spacing:.3em;margin-top:4px}
 /* Descripción del platillo */
-.card p{color:var(--muted);font-size:.88rem;line-height:1.6;margin-top:12px;min-height:66px}
+.tarjeta p{color:var(--muted);font-size:.88rem;line-height:1.6;margin-top:12px;min-height:66px}
 /* Nivel de picante: circulitos que se encienden (no se usa actualmente) */
-.spice{display:flex;gap:5px;margin-top:14px}
-.spice i{width:14px;height:14px;border-radius:50%;background:var(--line)}
-.spice i.on{background:linear-gradient(180deg,var(--orange),var(--red))}
+.nivel-picante{display:flex;gap:5px;margin-top:14px}
+.nivel-picante i{width:14px;height:14px;border-radius:50%;background:var(--line)}
+.nivel-picante i.activo{background:linear-gradient(180deg,var(--orange),var(--red))}
 /* Etiqueta esquinada "Más pedida"/"Especial" (cinta diagonal) */
-.tag-hot{position:absolute;top:16px;right:-34px;transform:rotate(45deg);background:var(--red);color:var(--ink);font-size:.62rem;font-weight:800;letter-spacing:.18em;padding:6px 40px}
+.etiqueta-destacada{position:absolute;top:16px;right:-34px;transform:rotate(45deg);background:var(--red);color:var(--ink);font-size:.62rem;font-weight:800;letter-spacing:.18em;padding:6px 40px}
 
 /*  SECCIÓN HISTORIA */
-/* (La historia usa las clases generales: sec-tag, sec-title, sec-sub) */
+/* (La historia usa las clases generales: etiqueta-seccion, titulo-seccion, subtitulo-seccion) */
+
+/*  PÁGINAS DEL COMIC EN COLUMNA (HISTORIA) */
+/* La sección de historia necesita más espacio arriba para que
+   el título no quede tapado por la barra de navegación fija */
+.seccion-historia{padding-top:130px}
+
+/* Contenedor de las páginas: apila las imágenes UNA DEBAJO DE OTRA.
+   flex-direction:column es lo que las coloca en línea vertical
+   (página 1 arriba, página 2 abajo, página 3 más abajo, etc.) */
+.pila-imagenes{
+  display:flex;
+  flex-direction:column;              /* vertical: una debajo de otra */
+  align-items:center;                  /* cada imagen queda centrada */
+  gap:clamp(18px,2.4vw,34px);        /* espacio entre una página y la otra */
+  width:100%;
+  margin-top:clamp(30px,4vw,54px);
+}
+/* La imagen: toma todo el ancho disponible y nunca crece más de 1200px */
+.imagen-destacada{
+  display:block;
+  width:100%;
+  max-width:1200px;
+  height:auto;
+  border-radius:20px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.9);
+}
 
 /*PIE DE PÁGINA */
-footer{border-top:1px solid var(--line);padding:44px clamp(20px,6vw,80px);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:var(--coal)}
-footer .brand b{font-size:.95rem}
-footer p{color:var(--muted);font-size:.78rem;letter-spacing:.08em}
+.pie-pagina{border-top:1px solid var(--line);padding:44px clamp(20px,6vw,80px);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:var(--coal)}
+.pie-pagina p{color:var(--muted);font-size:.78rem;letter-spacing:.08em}
+/* Enlaces de redes sociales */
+.redes-sociales{display:flex;gap:16px;align-items:center}
 
-/*  ANIMACIONES AL HACER SCROLL (efecto "reveal") */
-/* Estado inicial: invisible y desplazado hacia abajo.
-   JavaScript agrega la clase "in" cuando el elemento entra en pantalla */
-.reveal{opacity:0;transform:translateY(34px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
-/* Estado final: visible en su posición normal */
-.reveal.in{opacity:1;transform:none}
-/* Retrasos escalonados para que los elementos aparezcan uno tras otro */
-.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
+/*  El contenido se muestra siempre visible (sin animación al hacer scroll) */
+.aparicion{opacity:1;transform:none}
+/* Retrasos para que los elementos aparezcan escalonados */
+.retraso-1{transition-delay:.1s}
+.retraso-2{transition-delay:.2s}
+.retraso-3{transition-delay:.3s}
 
 /* Animación de pulso (latido) usada por el pin del mapa */
-@keyframes pulse{50%{opacity:.35}}
+@keyframes pulso{50%{opacity:.35}}
 
 /*  DISEÑO RESPONSIVO — TABLET Y ESCRITORIO (768px o más)*/
 @media(min-width:768px){
-  .hero{grid-template-columns:1.05fr .95fr}   /* hero en 2 columnas: texto + imagen */
-  .hero-art{display:block}                    /* muestra la imagen de Neruko */
+  .portada{grid-template-columns:1.05fr .95fr}   /* portada en 2 columnas: texto + imagen */
+  .capa-visual{display:block}                    /* muestra la imagen de Neruko */
 }
 
 /* DISEÑO RESPONSIVO — CELULAR (menos de 768px) */
 @media(max-width:767px){
   /* Aparece el botón hamburguesa (position:relative sirve para
      la zona táctil extra del ::after de abajo) */
-  .nav-toggle{display:flex;position:relative}
+  .boton-menu{display:flex;position:relative}
   /* Zona táctil invisible más grande alrededor del botón,
      para que sea fácil de presionar con el dedo */
-  .nav-toggle::after{content:"";position:absolute;inset:-12px}
-  /* El menú se convierte en un panel lateral deslizante */
-  .nav-links{
-    position:fixed;top:0;right:0;bottom:0;
-    width:min(80vw,320px);
-    background:var(--coal);
-    border-left:1px solid var(--line);
-    box-shadow:-24px 0 60px rgba(0,0,0,.55);   /* sombra para separarlo del fondo */
-    flex-direction:column;align-items:center;justify-content:center;
-    gap:28px;
-    /* respeta la barra inferior de gestos del celular (iPhone) */
-    padding:80px 24px calc(40px + env(safe-area-inset-bottom));
-    transform:translateX(105%);               /* escondido fuera de la pantalla */
-    visibility:hidden;                        /* no se puede tocar mientras está oculto */
-    transition:transform .4s cubic-bezier(.2,.9,.3,1),visibility .4s;
-    z-index:99;
+  .boton-menu::after{content:"";position:absolute;inset:-12px}
+  /* El menú se convierte en un panel desplegable a todo el ancho,
+     que baja desde la barra superior (estilo barra de navegación móvil) */
+  .contenedor-enlaces{
+     position:absolute;top:100%;left:0;right:0;   /* justo debajo de la barra */
+     flex-direction:column;align-items:flex-start;
+     gap:18px;
+     /* respeta la barra inferior de gestos del celular (iPhone) */
+     padding:26px 32px calc(26px + env(safe-area-inset-bottom));
+     background:rgba(21,16,11,.97);
+     backdrop-filter:blur(16px);
+     -webkit-backdrop-filter:blur(16px);
+     border-bottom:1px solid var(--line);
+     box-shadow:0 30px 60px -24px rgba(0,0,0,.75); /* sombra para separarlo del fondo */
+     transform:translateY(-140%);               /* escondido por encima de la barra */
+     visibility:hidden;                         /* no se puede tocar mientras está oculto */
+     transition:transform .38s ease,visibility .38s;
+     z-index:99;
   }
-  /* Cuando JavaScript agrega la clase "open", el panel entra */
-  .nav-links.open{transform:translateX(0);visibility:visible}
+  /* Cuando JavaScript agrega la clase "abierto", el panel baja */
+  .contenedor-enlaces.abierto{transform:translateY(0);visibility:visible}
   /* Enlaces más grandes y con más área de toque (fáciles de presionar) */
-  .nav-links a{font-size:1.1rem;padding:10px 20px}
-  .hero{padding-top:120px}
-  .hero-copy h1{font-size:clamp(2.2rem,10vw,4rem)}  /* título más chico en celular */
+  .contenedor-enlaces a{font-size:1.1rem;padding:4px 0}
+  .portada{padding-top:120px}
+  .texto-portada h1{font-size:clamp(2.2rem,10vw,4rem)}  /* título más chico en celular */
+  /* Las páginas del comic quedan más pegadas y con esquinas suaves */
+  .seccion-historia{padding-top:100px}
+  .pila-imagenes{gap:16px}
+  .imagen-destacada{border-radius:12px}
 }

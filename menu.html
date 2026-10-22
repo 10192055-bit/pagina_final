@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script src="ds.js" defer></script>
+</head>
+<body>
+
+    <nav class="barra-navegacion">
+        <!-- Logo de la página; al hacer clic lleva al inicio (#inicio) -->
+        <a class="marca" href="index.html">
+        <img src="img/logo_final.png" alt="" width="150">
+        </a>
+        <!-- Botón hamburguesa: solo se ve en celulares, abre/cierra el menú -->
+        <button class="boton-menu" id="botonMenu" aria-label="Abrir menú" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <!-- Lista de enlaces del menú. Cada uno lleva a una sección de la página -->
+        <ul class="contenedor-enlaces" id="listaEnlaces">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="menu.html">Menú</a></li>
+            <li><a href="historia.html">Historia</a></li>
+        </ul>
+    </nav>
+
+    <!-- Fondo oscuro detrás del menú móvil: se cierra el menú tocando afuera -->
+    <div class="capa-menu" id="capaMenu"></div>
+
+    <!--  SECCIÓN MENÚ  -->
+<!-- Muestra las tarjetas con cada platillo, precio, foto y descripción -->
+    <section class="seccion" id="seccionMenu">
+        <!-- Etiqueta pequeña decorativa arriba del título -->
+        <p class="etiqueta-seccion aparicion">El menú</p>
+        <!-- Título de la sección -->
+        <h2 class="titulo-seccion aparicion retraso-1">Descubre los sabores de <em>Japón</em> </h2>
+        <!-- Subtítulo descriptivo -->
+        <p class="subtitulo-seccion aparicion retraso-2">Nuestro menú ofrece una amplia variedad de platillos inspirados en la gastronomía japonesa, combinando sabores tradicionales, ingredientes frescos y una presentación cuidadosamente elaborada.</p>
+
+
+
+        <!-- Contenedor de las tarjetas del menú (la cuadrícula se arma en CSS) -->
+        <div class="contenedor-tarjetas">
+
+            <!-- TARJETA 1: platillo con etiqueta "Más pedida" -->
+            <article class="tarjeta aparicion">
+                <center><div class="etiqueta-destacada">Más pedida</div></center>
+                <div class="tarjeta-cabecera">
+                    <span class="precio">$13.50</span>
+                </div>
+                <h3>Tonkotsu Kuro</h3>
+                <center><img src="img/Tonkotsu%20Kuro.jpg" alt="" width="320"></center>
+                 <p>Caldo de cerdo 18 horas, aceite de ajo negro, chashu lacado, ajitama cremoso y cebolleta. El clásico que fundó la casa.</p>
+
+            </article>
+
+            <!-- TARJETA 2 -->
+            <article class="tarjeta aparicion retraso-1">
+                <div class="tarjeta-cabecera">
+                    <span class="precio">$12.00</span>
+                </div>
+                <h3>Miso Robusto</h3>
+                <center><img src="img/Miso%20Robusto.jpg" alt="" width="400" height="222"></center>
+                <p>Miso con mantequilla, maíz asado, wakame y cerdo desmenuzado. Cuerpo profundo para días fríos.</p>
+
+            </article>
+
+            <!-- TARJETA 3 -->
+            <article class="tarjeta aparicion retraso-2">
+                <div class="tarjeta-cabecera">
+                    <span class="precio">$11.50</span>
+                </div>
+                <h3>Shoyu Clásico</h3>
+                <center><img src="img/Shoyu%20Cl%C3%A1sico.jpg" alt="" width="250"></center>
+                <p>Salsa de soya artesanal, dashi de bonito, naruto, huevo marinado y brotes crujientes. Ligero, limpio, eterno.</p>
+
+            </article>
+
+            <!-- TARJETA 4: platillo con etiqueta "Especial" -->
+            <article class="tarjeta aparicion retraso-1">
+                <div class="etiqueta-destacada">Especial</div>
+                <div class="tarjeta-cabecera">
+                    <span class="precio">$13.00</span>
+                </div>
+                <h3>Tantanmen Fuego</h3>
+                <center><img src="img/Tantanmen%20Fuego.jpg" alt="" width="240"></center>
+               <p>Sésamo, chili de Sichuan, carne picada crocante y aceite rojo flotando como lava. Firma el disclaimer.</p>
+
+            </article>
+
+            <!-- TARJETA 5 -->
+            <article class="tarjeta aparicion retraso-2">
+                <div class="tarjeta-cabecera">
+                    <span class="precio">$11.00</span>
+                </div>
+                <h3>Yuzu Shio</h3>
+                <center><img src="img/Yuzu%20Shio.jpg" alt="" width="310"></center>
+                <p>Caldo claro de sal marina, cítrico yuzu, pollo tierno y verduras de estación. Frescura que abraza.</p>
+            </article>
+
+            <!-- TARJETA 6 -->
+            <article class="tarjeta aparicion retraso-3">
+                <div class="tarjeta-cabecera">
+                    <span class="precio">$10.50</span>
+                </div>
+                <h3>Kinoku Veggie</h3>
+                <center><img src="img/Kinoku Veggie.jpg" alt="" width="300"></center>
+                <p>Cinco hongos, caldo de kombu shiitake, tofu sedoso y aceite de sésamo tostado. Cien por ciento vegetal.</p>
+            </article>
+
+            <!-- TARJETA 7 -->
+             <article class="tarjeta aparicion retraso-3">
+                <div class="tarjeta-cabecera">
+                    <span class="precio">$9.50</span>
+                </div>
+                <h3>Sushi</h3>
+                <center><img src="img/Sushi.jpg" alt="" width="350"></center>
+                <p>Rollos perfectos que combinan la frescura del mar, arroz saazonado a la perfección y texturas crujientes. Una explosión de sabor sutil, fresca y sofisticada en cada pieza.</p>
+            </article>
+
+            <!-- TARJETA 8 -->
+             <article class="tarjeta aparicion retraso-3">
+                <div class="tarjeta-cabecera">
+                    <span class="precio">$6.50</span>
+                </div>
+                <h3>Gyoza</h3>
+                <center><img src="img/Gyoza.jpg" alt="" width="350"></center>
+                <p>Deliciosas empanadillas japonesas preparadas al estilo tradicional: doradas a la plancha por fuera para un toque crujiente.</p>
+            </article>
+
+        </div>
+    </section>
+
+</body>
+</html>

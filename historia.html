@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script src="ds.js" defer></script>
+</head>
+<body>
+        <nav class="barra-navegacion">
+        <!-- Logo de la página; al hacer clic lleva al inicio (#inicio) -->
+        <a class="marca" href="index.html">
+        <img src="img/logo_final.png" alt="" width="150">
+        </a>
+        <!-- Botón hamburguesa: solo se ve en celulares, abre/cierra el menú -->
+        <button class="boton-menu" id="botonMenu" aria-label="Abrir menú" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <!-- Lista de enlaces del menú. Cada uno lleva a una sección de la página -->
+        <ul class="contenedor-enlaces" id="listaEnlaces">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="menu.html">Menú</a></li>
+            <li><a href="historia.html">Historia</a></li>
+        </ul>
+    </nav>
+
+    <!-- Fondo oscuro detrás del menú móvil: se cierra el menú tocando afuera -->
+    <div class="capa-menu" id="capaMenu"></div>
+
+
+    <!--  SECCIÓN HISTORIA  -->
+    <!-- Título de la sección + las páginas del comic apiladas en columna -->
+    <section class="seccion seccion-historia" id="historia">
+        <!-- Etiqueta pequeña decorativa arriba del título -->
+        <p class="etiqueta-seccion aparicion">Historia</p>
+        <!-- Título de la sección -->
+        <h1 class="titulo-seccion aparicion retraso-1">¿Cómo conocimos a <em>Naruko</em>?</h1>
+
+        <!-- Contenedor de las páginas: en CSS se apilan en columna (vertical) -->
+        <div class="pila-imagenes">
+        
+            <img class="imagen-destacada" src="img/Historia de Naruko-01.jpg.jpeg" alt="Página 1 del comic de Naruko">
+  
+            <img class="imagen-destacada" src="img/Historia de Naruko-02.jpg.jpeg" alt="Página 2 del comic de Naruko">
+        
+            <img class="imagen-destacada" src="img/Historia de Naruko-03.jpg.jpeg" alt="Página 3 del comic de Naruko">
+          
+            <img class="imagen-destacada" src="img/Historia de Naruko-04.jpg.jpeg" alt="Página 4 del comic de Naruko">
+          
+            <img class="imagen-destacada" src="img/Historia de Naruko-05.jpg.jpeg" alt="Página 5 del comic de Naruko">
+         
+            <img class="imagen-destacada" src="img/Historia de Naruko-06.jpg.jpeg" alt="Página 6 del comic de Naruko">
+      
+            <img class="imagen-destacada" src="img/Historia de Naruko-07.jpg.jpeg" alt="Página 7 del comic de Naruko">
+     
+            <img class="imagen-destacada" src="img/Historia de Naruko-9.jpg.jpeg" alt="Página 9 del comic de Naruko">
+        
+            <img class="imagen-destacada" src="img/Historia de Naruko-11.jpg.jpeg" alt="Página 10 del comic de Naruko">
+
+            <img class="imagen-destacada" src="img/Historia de Naruko-08.jpg.jpeg" alt="Página 8 del comic de Naruko">
+        </div>
+    </section>
+
+</body>
+</html>
